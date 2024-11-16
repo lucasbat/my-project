@@ -1,14 +1,13 @@
 # This file manages the frontend and MongoDB in separate containers
-version: '3.8'
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/app
     ports:
       - "3000:80"
-    volumes:
-      - ./dist:/usr/share/nginx/html
     depends_on:
       - mongodb
 

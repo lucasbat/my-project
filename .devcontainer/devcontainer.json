@@ -1,8 +1,8 @@
 {
-  "name": "Node.js & MongoDB",
-  "dockerComposeFile": "docker-compose.yml",
+  "name": "React + Node.js + MongoDB Development Environment",
+  "dockerComposeFile": "../docker-compose.yml",
   "service": "frontend",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/app",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,5 +14,7 @@
         "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
-  }
+  },
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root"  // Mudando para "root" para evitar o erro com o usuário "node"
 }

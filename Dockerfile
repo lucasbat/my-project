@@ -1,12 +1,18 @@
-# Etapa 1: Construir a aplicação
+# Build an application
 FROM node:18 AS builder
 WORKDIR /app
+
+RUN addgroup -S node || true && adduser -S node -G node || true
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
+
 RUN npm run build
 
-# Etapa 2: Servir a aplicação
+# Serve an application
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
