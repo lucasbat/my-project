@@ -1,5 +1,8 @@
-# Build an application
-FROM node:18 AS builder
+FROM node:18-alpine AS builder
+
+RUN apk update && \
+    apk add --no-cache git
+
 WORKDIR /app
 
 RUN addgroup -S node || true && adduser -S node -G node || true
@@ -12,8 +15,11 @@ COPY . .
 
 RUN npm run build
 
-# Serve an application
+
 FROM nginx:alpine
+
 COPY --from=builder /app/dist /usr/share/nginx/html
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
